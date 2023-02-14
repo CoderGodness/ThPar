@@ -39,7 +39,7 @@ int main()
     long long len = N;
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
-    #pragma acc data create(temp[:len]) copyin(len,x)
+   // #pragma acc data create(temp[:len]) copyin(len,x)
     {
         #pragma acc kernels
         {
@@ -50,7 +50,7 @@ int main()
         }
     }
     double sum = 0;
-    #pragma acc data copy(sum) copyin(temp[:len], len)
+    //#pragma acc data copy(sum) copyin(temp[:len], len)
     {
         #pragma acc kernels
         {
