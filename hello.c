@@ -8,6 +8,8 @@ void func(double** my_array, int len)
 {
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
+#pragma acc data create(my_array[:len]) //copy(sum) copyin(temp)
+#pragma acc data kernels
     for (int i = 0; i < len; ++i)
     {
         temp[i] = sin(i*x);
@@ -18,6 +20,7 @@ double summ(double** my_array, int len)
 {
     double sum = 0;
     double* temp = *my_array;
+#pragma acc data kernels
     for (int i = 0; i < len; ++i)
     {
         sum += temp[i];
