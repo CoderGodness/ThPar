@@ -35,5 +35,6 @@ int main()
     func(array, len);
     double sum = summ(array, len);
     printf("%lf", sum);
+    free(*array);
     return 0;
 }
