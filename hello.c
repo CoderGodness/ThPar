@@ -4,6 +4,7 @@
 #include <math.h>
 #define N 10000000
 //
+
 //void func(double** my_array, int len)
 //{
 //    double x = 2 * M_PI / N;
