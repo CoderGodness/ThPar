@@ -12,7 +12,7 @@ void func(double** my_array, int len)
     {
 #pragma acc parallel 
         {
-#pragma acc loop gang vector(260)
+#pragma acc loop vector(260)
             {
                 for (int i = 0; i < len; ++i)
                 {
@@ -31,7 +31,7 @@ double summ(double** my_array, int len)
     {
 #pragma acc parallel
         {
-#pragma acc loop gang vector(260)
+#pragma acc loop vector(260)
             {
                 for (int i = 0; i < len; ++i)
                 {
