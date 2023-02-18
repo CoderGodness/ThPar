@@ -7,9 +7,9 @@ void func(double** my_array, int len)
 {
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
-#pragma acc parallel copyout(temp[:len])
+#pragma acc data copyout(temp[:len])
 {
-#pragma acc loop
+#pragma acc parallel loop gang vector vector_length(64)
 {
                 for (int i = 0; i < len; ++i)
                 {
@@ -23,9 +23,9 @@ double summ(double** my_array, int len)
 {
     double sum = 0;
     double* temp = *my_array;
-#pragma acc parallel copyout(sum) copyin(temp[:len])
+#pragma acc data copyout(sum) copyin(temp[:len])
 {
-#pragma acc loop 
+#pragma acc parallel loop gang vector vector_length(64)
 {
                 for (int i = 0; i < len; ++i)
                 {
