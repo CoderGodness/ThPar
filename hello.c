@@ -11,7 +11,7 @@ void func(double** my_array, int len)
 {
 #pragma acc loop
 {
-#pragma acc gang vector(64)
+#pragma acc vector(64)
 {
                 for (int i = 0; i < len; ++i)
                 {
@@ -30,7 +30,7 @@ double summ(double** my_array, int len)
 {
 #pragma acc loop 
 {
-#pragma acc gang vector(64)
+#pragma acc vector(64)
 {
                 for (int i = 0; i < len; ++i)
                 {
