@@ -42,7 +42,7 @@ double summ(double* my_array, int len)
 
 int main()
 {
-    double* array = (double*)malloc(sizeof(double*));
+    double* array;
     func(array, N);
     printf("%lf", summ(array, N));
     free(array);
