@@ -31,7 +31,7 @@ int main()
  		clock_t begin = clock();
     double** array = (double**)malloc(sizeof(double**));
     func(array, N);
-    printf("%lf", summ(array, N));
+    printf("%lf\n", summ(array, N));
     free(*array);
 		clock_t end = clock();
 		printf("The elapsed time is %f seconds", (double)(end - begin) / CLOCKS_PER_SEC);
