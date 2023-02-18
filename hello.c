@@ -7,6 +7,7 @@ double func(double** my_array, int len)
 {
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
+    double sum = 0;
 #pragma acc data copyout(temp[:len], sum) 
     {
 #pragma acc parallel
