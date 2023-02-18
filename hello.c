@@ -10,7 +10,7 @@ void func(double** my_array, int len)
     double* temp = (double*)malloc(sizeof(double) * len);
     #pragma acc data copyout(temp[:len]) copyin(len,x)
     {
-        #pragma acc loop vector(16)
+        #pragma acc parallel
         {
             for (int i = 0; i < len; ++i)
             {
