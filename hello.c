@@ -5,7 +5,7 @@
 #define M_PI 3.14159265358979323846
 void func(double** my_array, int len)
 {
-    double x = 2 * M_PI / N;
+    double x = 2 * M_PI / N*2;
     double* temp = (double*)malloc(sizeof(double) * len);
     #pragma acc data copyout(temp[:len]) copyin(len,x)
     {
