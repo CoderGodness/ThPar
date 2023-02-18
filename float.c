@@ -38,9 +38,12 @@ float summ(float** my_array, int len)
 
 int main()
 {
+    clock_t begin = clock();
     float** array = (float**)malloc(sizeof(float**));
     func(array, N);
-    printf("%f", summ(array, N));
+    printf("%f\n", summ(array, N));
     free(*array);
+    clock_t end = clock();
+	printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
