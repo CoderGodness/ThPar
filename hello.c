@@ -3,36 +3,38 @@
 #include <math.h>
 #define N 5000000
 #define M_PI 3.14159265358979323846
-void func(double* my_array, int len)
+void func(double** my_array, int len)
 {
     double x = 2 * M_PI / N / 2;
-    my_array = (double*)malloc(sizeof(double) * len);
-    #pragma acc data copyin(len,x) copyout(my_array[:len]) 
+    double* temp = (double*)malloc(sizeof(double) * len);
+#pragma acc data copyin(len,x) copyout(temp[:len]) 
     {
-        #pragma acc parallel
+#pragma acc parallel
         {
-            #pragma acc loop
+#pragma acc loop
             {
                 for (int i = 0; i < len; ++i)
                 {
-                    my_array[i] = sin(i * x);
+                    temp[i] = sin(i * x);
                 }
             }
         }
     }
+    *my_array = temp;
 }
-double summ(double* my_array, int len)
+double summ(double** my_array, int len)
 {
     double sum = 0;
-    #pragma acc data copyout(sum) copyin(len, my_array[:len])
+    double* temp = *my_array;
+#pragma acc data copyout(sum) copyin(len, temp[:len])
     {
-        #pragma acc parallel
+#pragma acc parallel
         {
-            #pragma acc loop
+#pragma acc loop
             {
                 for (int i = 0; i < len; ++i)
                 {
-                    sum += my_array[i];
+                    sum += temp[i];
                 }
             }
         }
@@ -42,9 +44,9 @@ double summ(double* my_array, int len)
 
 int main()
 {
-    double* array;
+    double** array = (double**)malloc(sizeof(double**));
     func(array, N);
     printf("%lf", summ(array, N));
-    free(array);
+    free(*array);
     return 0;
 }
