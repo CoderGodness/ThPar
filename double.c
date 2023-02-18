@@ -1,6 +1,8 @@
 #include <malloc.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h> 
+#include <unistd.h>
 #define N 10000000
 #define M_PI 3.14159265358979323846
 void func(double** my_array, int len)
@@ -38,9 +40,12 @@ double summ(double** my_array, int len)
 
 int main()
 {
+    clock_t begin = clock();
     double** array = (double**)malloc(sizeof(double**));
     func(array, N);
-    printf("%lf", summ(array, N));
+    printf("%lf\n", summ(array, N));
     free(*array);
+    clock_t begin = clock();
+    printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
