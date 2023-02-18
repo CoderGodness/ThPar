@@ -9,12 +9,15 @@ void func(double** my_array, int len)
     double* temp = (double*)malloc(sizeof(double) * len);
 #pragma acc parallel copyout(temp[:len])
 {
-#pragma acc loop gang vector(64)
+#pragma acc loop
+{
+#pragma acc gang vector(64)
 {
                 for (int i = 0; i < len; ++i)
                 {
                     temp[i] = sin(i * x);
                 }
+}
 }
 }
     *my_array = temp;
@@ -25,12 +28,15 @@ double summ(double** my_array, int len)
     double* temp = *my_array;
 #pragma acc parallel copyout(sum) copyin(temp[:len])
 {
-#pragma acc loop gang vector(64)
+#pragma acc loop 
+{
+#pragma acc gang vector(64)
 {
                 for (int i = 0; i < len; ++i)
                 {
                     sum += temp[i];
                 }
+}
 }
 }
     return sum;
