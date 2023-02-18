@@ -9,6 +9,7 @@ int main()
     //double** array = (double**)malloc(sizeof(double**));
     double x = 2 * M_PI / N;
     double sum = 0;
+    int len = N;
 #pragma acc parallel num_gangs(2048) vector_length(224)  copyout(sum) 
     {
 #pragma acc loop gang vector
