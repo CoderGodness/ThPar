@@ -1,16 +1,15 @@
-#define _USE_MATH_DEFINES
 #include <malloc.h>
 #include <stdio.h>
 #include <math.h>
 #define N 10000000
-
+#define M_PI 3.14159265358979323846
 void func(double** my_array, int len)
 {
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
     //#pragma acc data copyout(temp[:len]) copyin(len,x)
     {
-        #pragma acc parallel
+        #pragma acc kernel
         {
             for (int i = 0; i < len; ++i)
             {
@@ -26,7 +25,7 @@ double summ(double** my_array, int len)
     double* temp = *my_array;
     //#pragma acc data copyout(sum) copyin(temp[:len], len)
     {
-        #pragma acc parallel
+        #pragma acc kernel
         {
             for (int i = 0; i < len; ++i)
             {
