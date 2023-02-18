@@ -34,6 +34,6 @@ int main()
     printf("%lf\n", summ(array, N));
     free(*array);
 		clock_t end = clock();
-		printf("The elapsed time is %f seconds", (double)(end - begin) / CLOCKS_PER_SEC);
+		printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
