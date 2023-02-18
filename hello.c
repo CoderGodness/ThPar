@@ -28,6 +28,5 @@ int main()
 
     }
     printf("%lf", sum);
-    free(*array);
     return 0;
 }
