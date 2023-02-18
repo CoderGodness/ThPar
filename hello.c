@@ -26,7 +26,7 @@ double summ(double** my_array, int len)
 {
     double sum = 0;
     double* temp = *my_array;
-    #pragma acc data create(sum) copyin(temp[:len], len)
+    #pragma acc data copyout(sum) copyin(temp[:len], len)
     {
         #pragma acc parallel
         {
