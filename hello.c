@@ -45,6 +45,6 @@ int main()
     double* array = (double*)malloc(sizeof(double*));
     func(array, N);
     printf("%lf", summ(array, N));
-    free(*array);
+    free(array);
     return 0;
 }
