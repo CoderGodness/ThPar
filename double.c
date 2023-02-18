@@ -45,7 +45,7 @@ int main()
     func(array, N);
     printf("%lf\n", summ(array, N));
     free(*array);
-    clock_t begin = clock();
+    clock_t end = clock();
     printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
