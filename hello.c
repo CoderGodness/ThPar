@@ -7,14 +7,17 @@ void func(double** my_array, int len)
 {
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
-    //#pragma acc data copyout(temp[:len]) copyin(len,x)
+    #pragma acc data copyout(temp[:len]) copyin(len,x)
     {
-        #pragma acc parallel loop
+        #pragma acc parallel
+        {
+        #pragma acc loop
         {
             for (int i = 0; i < len; ++i)
             {
                 temp[i] = sin(i * x);
             }
+        }
         }
     }
     *my_array = temp;
@@ -23,14 +26,18 @@ double summ(double** my_array, int len)
 {
     double sum = 0;
     double* temp = *my_array;
-    //#pragma acc data copyout(sum) copyin(temp[:len], len)
+    #pragma acc data copyout(sum) copyin(temp[:len], len)
     {
-        #pragma acc parallel loop
+        #pragma acc parallel
         {
+        #pragma acc loop
+        {
+        #pragma acc loop
             for (int i = 0; i < len; ++i)
             {
                 sum += temp[i];
             }
+        }
         }
     }
     return sum;
