@@ -15,6 +15,7 @@ void func(double** my_array, int len)
       }
     *my_array = temp;
 }
+double summ(double** my_array, int len)
 {
     double sum = 0;
     double* temp = *my_array;
