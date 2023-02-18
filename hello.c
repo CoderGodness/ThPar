@@ -11,13 +11,13 @@ void func(double** my_array, int len)
     {
         #pragma acc parallel
         {
-        #pragma acc loop
-        {
-            for (int i = 0; i < len; ++i)
+            #pragma acc loop
             {
-                temp[i] = sin(i * x);
+                for (int i = 0; i < len; ++i)
+                {
+                    temp[i] = sin(i * x);
+                }
             }
-        }
         }
     }
     *my_array = temp;
@@ -30,14 +30,13 @@ double summ(double** my_array, int len)
     {
         #pragma acc parallel
         {
-        #pragma acc loop
-        {
-        #pragma acc loop
-            for (int i = 0; i < len; ++i)
+            #pragma acc loop
             {
-                sum += temp[i];
+                for (int i = 0; i < len; ++i)
+                {
+                    sum += temp[i];
+                }
             }
-        }
         }
     }
     return sum;
