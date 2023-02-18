@@ -7,7 +7,7 @@ void func(double** my_array, int len)
 {
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
-#pragma acc parallel num_gangs(64) copyout(temp[:len])
+#pragma acc parallel num_gangs(64*64*64) copyout(temp[:len])
 {
 #pragma acc loop gang vector
 {
