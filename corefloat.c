@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
-#include <unistd.h>
 #define N 10000000
 #define M_PI 3.14159265358979323846
 void func(float** my_array, int len)
@@ -11,7 +10,7 @@ void func(float** my_array, int len)
     float* temp = (float*)malloc(sizeof(float) * len);
       for (int i = 0; i < len; ++i)
       {
-          temp[i] = sin(i * x);
+          temp[i] = sinf(i * x);
       }
     *my_array = temp;
 }
