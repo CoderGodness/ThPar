@@ -15,7 +15,7 @@ void func(float** my_array, int len)
         {
             for (int i = 0; i < len; ++i)
             {
-                temp[i] = sin(i * x);
+                temp[i] = sinf(i * x);
             }
         }
     }
