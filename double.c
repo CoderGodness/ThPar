@@ -12,9 +12,9 @@ int main()
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
     double sum = 0;
-    #pragma acc data copyout(sum)
+    #pragma acc data create(temp[0:len]) copyout(sum)
     {
-    #pragma acc parallel num_gangs(65536) vector_length(256) 
+    #pragma acc parallel num_gangs(2048) vector_length(256) 
     {
         #pragma acc loop gang vector
         {
@@ -25,7 +25,7 @@ int main()
         }
     }
     
-    #pragma acc parallel num_gangs(65536) vector_length(224)
+    #pragma acc parallel num_gangs(2048) vector_length(256)
     {
         #pragma acc loop gang vector
         {
