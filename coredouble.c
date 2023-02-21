@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>       // for clock_t, clock(), CLOCKS_PER_SEC
-#include <unistd.h>
 #define N 10000000
 #define M_PI 3.14159265358979323846
 void func(double** my_array, int len)
