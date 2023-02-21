@@ -8,7 +8,7 @@
 int main()
 {
     clock_t begin = clock();
-    
+    int len =N;
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
     double sum = 0;
