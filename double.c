@@ -4,13 +4,19 @@
 #include <time.h> 
 #define N 10000000
 #define M_PI 3.14159265358979323846
-void func(double** my_array, int len)
+
+int main()
 {
+    clock_t begin = clock();
+    
     double x = 2 * M_PI / N;
     double* temp = (double*)malloc(sizeof(double) * len);
-#pragma acc parallel num_gangs(2048) vector_length(224) copyout(temp[0:len])
+    double sum = 0;
+    #pragma acc data create(temp[0:len]) copyout(sum)
     {
-#pragma acc loop gang vector
+    #pragma acc parallel num_gangs(2048) vector_length(224) 
+    {
+        #pragma acc loop gang vector
         {
             for (int i = 0; i < len; ++i)
             {
@@ -18,15 +24,10 @@ void func(double** my_array, int len)
             }
         }
     }
-    *my_array = temp;
-}
-double summ(double** my_array, int len)
-{
-    double sum = 0;
-    double* temp = *my_array;
-#pragma acc parallel num_gangs(2048) vector_length(224) copyin(temp[:len])
+    
+    #pragma acc parallel num_gangs(2048) vector_length(224)
     {
-#pragma acc loop gang vector
+        #pragma acc loop gang vector
         {
             for (int i = 0; i < len; ++i)
             {
@@ -34,17 +35,10 @@ double summ(double** my_array, int len)
             }
         }
     }
-    return sum;
-}
-
-int main()
-{
-    clock_t begin = clock();
-    double** array = (double**)malloc(sizeof(double**));
-    func(array, N);
-    printf("%lf\n", summ(array, N));
-    free(*array);
+    }
+    free(temp);
     clock_t end = clock();
+    printf("%d",sum);
     printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
