@@ -21,7 +21,7 @@ void fill(double* arr, int len)
             arr[i] = sin(i * x);
         }
     }
-    clock_t endfill = clock();
+    endfill = clock();
 }
 double summ(double* arr, int len)
 {
