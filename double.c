@@ -6,10 +6,9 @@
 
 int main()
 {
-
+    clock_t begin = clock();
     int len = 10000000;
     double x = 2 * M_PI / len;
-    clock_t begin = clock();
     double* arr = (double*)malloc(sizeof(double) * len);
     double sum = 0;
     #pragma acc data create(arr[0:len]) copyout(sum)
