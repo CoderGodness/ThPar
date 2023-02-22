@@ -19,7 +19,7 @@ int main()
     clock_t endfill = clock();
 
     clock_t beginsum = clock();
-    for (int i = 0; i < len/2; ++i)
+    for (int i = 0; i < len; ++i)
     {
         sum += arr[i];
     }
