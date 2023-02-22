@@ -16,24 +16,18 @@ int main()
     {
     #pragma acc parallel num_gangs(2048) vector_length(256)
     {
-        #pragma acc loop gang vector
-        {
             for (int i = 0; i < len; ++i)
             {
                 temp[i] = sin(i * x);
             }
-        }
     }
     
     #pragma acc parallel num_gangs(2048) vector_length(256)
     {
-        #pragma acc loop gang vector
-        {
             for (int i = 0; i < len; ++i)
             {
                 sum += temp[i];
             }
-        }
     }
     }
     free(temp);
