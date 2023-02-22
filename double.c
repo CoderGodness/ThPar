@@ -14,7 +14,7 @@ int main()
     double sum = 0;
     #pragma acc data create(temp[0:len]) copyout(sum)
     {
-        #pragma acc kernels
+        #pragma acc kernels num_gangs(2048) vector_length(256)
         {
             for (int i = 0; i < len; ++i)
             {
@@ -22,7 +22,7 @@ int main()
             }
         }
     
-        #pragma acc kernels
+        #pragma acc kernels num_gangs(2048) vector_length(256)
         {
             for (int i = 0; i < len; ++i)
             {
