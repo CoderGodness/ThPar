@@ -1,38 +1,37 @@
+#define _USE_MATH_DEFINES
 #include <malloc.h>
 #include <stdio.h>
 #include <math.h>
-#include <time.h>       // for clock_t, clock(), CLOCKS_PER_SEC
-#define N 10000000
-#define M_PI 3.14159265358979323846
-void func(double** my_array, int len)
-{
-    double x = 2 * M_PI / N;
-    double* temp = (double*)malloc(sizeof(double) * len);
-      for (int i = 0; i < len; ++i)
-      {
-          temp[i] = sin(i * x);
-      }
-    *my_array = temp;
-}
-double summ(double** my_array, int len)
-{
-    double sum = 0;
-    double* temp = *my_array;
-			for (int i = 0; i < len; ++i)
-			{
-					sum += temp[i];
-			}
-    return sum;
-}
+#include <time.h> 
 
 int main()
 {
- 		clock_t begin = clock();
-    double** array = (double**)malloc(sizeof(double**));
-    func(array, N);
-    printf("%lf\n", summ(array, N));
-    free(*array);
-		clock_t end = clock();
-		printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
+    clock_t begin = clock();
+    int len = 10000000;
+    double x = 2 * M_PI / len;
+    double* arr = (double*)malloc(sizeof(double) * len);
+    double sum = 0;
+   // #pragma acc data create(arr[0:len]) copyout(sum)
+    {
+        //#pragma acc parallel num_gangs(2048) vector_length(256)
+        {
+            for (int i = 0; i < len; ++i)
+            {
+                arr[i] = sin(i * x);
+            }
+        }
+    
+      //  #pragma acc parallel num_gangs(2048) vector_length(256)
+        {
+            for (int i = 0; i < len; ++i)
+            {
+                sum += arr[i];
+            }
+        }
+    }
+    free(arr);
+    clock_t end = clock();
+    printf("%lf",sum);
+    printf("\nThe elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
