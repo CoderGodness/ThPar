@@ -16,7 +16,7 @@ int main()
     {
     #pragma acc parallel num_gangs(2048) vector_length(256)
     {
-        #pragma acc loop vector
+        #pragma acc loop gang vector
         {
             for (int i = 0; i < len; ++i)
             {
@@ -27,7 +27,7 @@ int main()
     
     #pragma acc parallel num_gangs(2048) vector_length(256)
     {
-        #pragma acc loop vector
+        #pragma acc loop gang vector
         {
             for (int i = 0; i < len; ++i)
             {
