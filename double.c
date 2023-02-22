@@ -14,21 +14,21 @@ int main()
     double sum = 0;
     #pragma acc data create(temp[0:len]) copyout(sum)
     {
-    #pragma acc parallel num_gangs(2048) vector_length(256)
-    {
+        #pragma acc parallel num_gangs(2048) 
+        {
             for (int i = 0; i < len; ++i)
             {
                 temp[i] = sin(i * x);
             }
-    }
+        }
     
-    #pragma acc parallel num_gangs(2048) vector_length(256)
-    {
+        #pragma acc parallel num_gangs(2048)
+        {
             for (int i = 0; i < len; ++i)
             {
                 sum += temp[i];
             }
-    }
+        }
     }
     free(temp);
     clock_t end = clock();
