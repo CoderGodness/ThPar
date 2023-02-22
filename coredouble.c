@@ -12,7 +12,7 @@ void fill(double* arr, int len)
         arr[i] = sin(i * x);
     }
 }
-dobule summ(double* arr, int len)
+double summ(double* arr, int len)
 {
     double sum=0;
     double x = 2 * M_PI / len;
