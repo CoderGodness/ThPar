@@ -11,6 +11,7 @@ void fill(double* arr, int len)
 {
     beginfill = clock();
     double x = 2 * M_PI / len;
+    
     #pragma acc enter data create(arr[0:len])
     
     #pragma acc parallel num_gangs(2048) vector_length(256)
@@ -36,6 +37,7 @@ double summ(double* arr, int len)
     }
     
     #pragma acc exit data delete(arr[0:len])
+    
     endsum = clock();
     return sum;
 }
