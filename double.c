@@ -2,37 +2,35 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h> 
-#define N 10000000
-#define M_PI 3.14159265358979323846
 
 int main()
 {
     clock_t begin = clock();
-    int len = N;
-    double x = 2 * M_PI / N;
-    double* temp = (double*)malloc(sizeof(double) * len);
+    int len = 10000000;
+    double x = 2 * 3.14159265358979323846 / len;
+    double* arr = (double*)malloc(sizeof(double) * len);
     double sum = 0;
-    #pragma acc data create(temp[0:len]) copyout(sum)
+    #pragma acc data create(arr[0:len]) copyout(sum)
     {
-        #pragma acc kernels num_gangs(2048) vector_length(256)
+        #pragma acc parallel num_gangs(2048) vector_length(256)
         {
             for (int i = 0; i < len; ++i)
             {
-                temp[i] = sin(i * x);
+                arr[i] = sin(i * x);
             }
         }
     
-        #pragma acc kernels num_gangs(2048) vector_length(256)
+        #pragma acc parallel num_gangs(2048) vector_length(256)
         {
             for (int i = 0; i < len; ++i)
             {
-                sum += temp[i];
+                sum += arr[i];
             }
         }
     }
-    free(temp);
+    free(arr);
     clock_t end = clock();
-    printf("%d",sum);
+    printf("%lf",sum);
     printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
