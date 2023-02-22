@@ -27,7 +27,7 @@ double summ(double* arr, int len)
         sum += arr[i];
     }
     }
-    #pragma acc exit data copyout(sum)
+    #pragma acc exit data delete(arr[0:len]) copyout(sum)
     return sum;
 }
 
