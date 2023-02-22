@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <malloc.h>
 #include <stdio.h>
 #include <math.h>
@@ -7,7 +8,7 @@ int main()
 {
     clock_t begin = clock();
     int len = 10000000;
-    double x = 2 * 3.14159265358979323846 / len;
+    double x = 2 * M_PI / len;
     double* arr = (double*)malloc(sizeof(double) * len);
     double sum = 0;
     #pragma acc data create(arr[0:len]) copyout(sum)
@@ -31,6 +32,6 @@ int main()
     free(arr);
     clock_t end = clock();
     printf("%lf",sum);
-    printf("The elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
+    printf("\nThe elapsed time is %lf seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     return 0;
 }
