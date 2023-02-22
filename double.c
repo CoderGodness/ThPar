@@ -14,7 +14,7 @@ int main()
     double sum = 0;
     #pragma acc data create(temp[0:len]) copyout(sum)
     {
-        #pragma acc kernel
+        #pragma acc kernels
         {
             for (int i = 0; i < len; ++i)
             {
@@ -22,7 +22,7 @@ int main()
             }
         }
     
-        #pragma acc kernel
+        #pragma acc kernels
         {
             for (int i = 0; i < len; ++i)
             {
