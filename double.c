@@ -14,7 +14,7 @@ int main()
     double sum = 0;
     #pragma acc data create(temp[0:len]) copyout(sum)
     {
-    #pragma acc parallel
+    #pragma acc parallel num_gangs(2048)
     {
         #pragma acc loop gang
         {
@@ -25,7 +25,7 @@ int main()
         }
     }
     
-    #pragma acc parallel
+    #pragma acc parallel num_gangs(2048)
     {
         #pragma acc loop gang
         {
