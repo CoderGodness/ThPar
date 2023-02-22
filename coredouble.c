@@ -7,27 +7,29 @@ void fill(double* arr, int len)
 {
     double x = 2 * M_PI / len;
     #pragma acc enter data create(arr[0:len])
+    
     #pragma acc parallel num_gangs(2048) vector_length(256)
     {
-    {
-    for (int i = 0; i < len; ++i)
-    {
-        arr[i] = sin(i * x);
-    }
-    }
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = sin(i * x);
+        }
     }
 }
 double summ(double* arr, int len)
 {
     double sum = 0;
+    
     #pragma acc parallel num_gangs(2048) vector_length(256)
     {
-    for (int i = 0; i < len; ++i)
-    {
-        sum += arr[i];
+        for (int i = 0; i < len; ++i)
+        {
+            sum += arr[i];
+        }
     }
-    }
+    
     #pragma acc exit data delete(arr[0:len]) copyout(sum)
+    
     return sum;
 }
 
