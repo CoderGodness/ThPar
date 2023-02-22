@@ -11,28 +11,19 @@ int main()
     double x = 2 * M_PI / len;
     double* arr = (double*)malloc(sizeof(double) * len);
     double sum = 0;
-   // #pragma acc data create(arr[0:len]) copyout(sum)
+    clock_t beginfill = clock();
+    for (int i = 0; i < len; ++i)
     {
-        //#pragma acc parallel num_gangs(2048) vector_length(256)
-        clock_t beginfill = clock();
-        {
-            for (int i = 0; i < len; ++i)
-            {
-                arr[i] = sin(i * x);
-            }
-        }
-        clock_t endfill = clock();
-    
-      //  #pragma acc parallel num_gangs(2048) vector_length(256)
-        clock_t beginsum = clock();
-        {
-            for (int i = 0; i < len/2; ++i)
-            {
-                sum += arr[i];
-            }
-        }
-        clock_t endsum = clock();
+        arr[i] = sin(i * x);
     }
+    clock_t endfill = clock();
+
+    clock_t beginsum = clock();
+    for (int i = 0; i < len/2; ++i)
+    {
+        sum += arr[i];
+    }
+    clock_t endsum = clock();
     free(arr);
     clock_t end = clock();
     printf("%lf",sum);
